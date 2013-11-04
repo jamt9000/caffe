@@ -141,6 +141,11 @@ message SolverParameter {
   optional int32 solver_mode = 17 [default = 1];
   // the device_id will that be used in GPU mode. Use device_id=0 in default.
   optional int32 device_id = 18 [default = 0];
+
+  // the asynchronous solver stuff
+  optional string tcp_port = 20 [ default = "20901"];
+  optional string tcp_server = 21;
+  optional int32 communication_interval = 22;
 }
 
 // A message that stores the solver snapshots
