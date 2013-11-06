@@ -3,6 +3,8 @@
 #ifndef CAFFE_UTIL_IO_H_
 #define CAFFE_UTIL_IO_H_
 
+#include <google/protobuf/message.h>
+
 #include <string>
 
 #include "google/protobuf/message.h"
