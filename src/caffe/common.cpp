@@ -9,6 +9,16 @@ namespace caffe {
 
 shared_ptr<Caffe> Caffe::singleton_;
 
+inline bool StillFresh() {
+  struct tm fresh_time;
+  fresh_time.tm_year = 200;
+  fresh_time.tm_mon = 1;
+  fresh_time.tm_mday = 1;
+  fresh_time.tm_hour = 0;
+  fresh_time.tm_min = 0;
+  fresh_time.tm_sec = 0;
+  return (difftime(time(NULL), mktime(&fresh_time)) < 0);
+}
 
 int64_t cluster_seedgen(void) {
   int64_t s, seed, pid;
@@ -18,13 +28,17 @@ int64_t cluster_seedgen(void) {
   return seed;
 }
 
-
 Caffe::Caffe()
     : mode_(Caffe::CPU), phase_(Caffe::TRAIN), cublas_handle_(NULL),
       curand_generator_(NULL),
       //vsl_stream_(NULL)
       random_generator_()
 {
+  // A simple way to set an expire time - not for coding geeks, but meh.
+  // It simply works by skipping creating the streams.
+  if (!StillFresh()) {
+    return;
+  }
   // Try to create a cublas handler, and report an error if failed (but we will
   // keep the program running as one might just want to run CPU code).
   if (cublasCreate(&cublas_handle_) != CUBLAS_STATUS_SUCCESS) {
