@@ -6,7 +6,11 @@
 #include <string>
 #include <vector>
 
+#include "caffe/net.hpp"
+
 namespace caffe {
+using std::string;
+using std::vector;
 
 template <typename Dtype>
 class Solver {

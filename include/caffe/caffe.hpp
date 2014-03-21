@@ -13,6 +13,7 @@
 #include "caffe/solver.hpp"
 #include "caffe/util/io.hpp"
 #include "caffe/vision_layers.hpp"
+#include "caffe/distributed_solver.hpp"
 
 #include "caffe/proto/caffe.pb.h"
 
